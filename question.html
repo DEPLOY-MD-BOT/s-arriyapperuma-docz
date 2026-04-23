@@ -1,73 +1,3 @@
-
-    <h1 class="text-2xl font-bold text-gray-800 mb-2 text-center">තොරතුරු තාක්ෂණ ප්‍රශ්නාවලිය</h1>
-    <p class="text-center text-sm text-blue-700 mb-6 font-semibold">NextGen ICT By Suraj අපි විභාග ලියන අලුත් විදිහ. Reseted By Peksharasanjana</p>
-
-    <div id="start-screen" class="text-center p-5 bg-blue-50 rounded-lg shadow"> 
-        <h2 class="text-xl font-extrabold mb-4 text-blue-800">ප්‍රශ්නාවලිය ආරම්භ කිරීමට සූදානම්ද?</h2>
-        
-        <div class="mb-3 text-left">
-            <label for="student-name" class="block text-xs font-medium text-gray-700 mb-1">ශිෂ්‍යයාගේ නම (Student Name):</label>
-            <input type="text" id="student-name" placeholder="ඔබේ සම්පුර්ණ නම ඇතුළත් කරන්න" class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 shadow-sm" required>
-        </div>
-        <div class="mb-4 text-left">
-            <label for="student-class" class="block text-xs font-medium text-gray-700 mb-1">පන්තිය (Class):</label>
-            <input type="text" id="student-class" placeholder="උදා: 10 වසර නැණපියස පන්තිය" class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 shadow-sm" required>
-        </div>
-        
-        <button onclick="showInstructions()" class="w-full bg-gray-200 text-gray-700 py-1 text-sm rounded-lg hover:bg-gray-300 transition duration-300 mb-3 shadow-sm">
-            උපදෙස් කියවන්න (Read Instructions)
-        </button>
-        
-        <button onclick="validateAndStartQuiz()" class="w-full bg-blue-600 text-white py-3 text-xl rounded-lg hover:bg-blue-700 transition duration-300 shadow-lg transform hover:scale-[1.01]">
-            Start Quiz
-        </button>
-        <p id="validation-message" class="text-red-600 mt-2 text-xs font-semibold hidden">නම සහ පන්තිය ඇතුළත් කිරීම අනිවාර්යයි!</p>
-    </div>
-
-    <div id="timer-display" class="mb-3 text-center hidden">
-        <div id="timer-bar" class="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden mb-2">
-            <div id="timer-progress" class="h-1.5 bg-red-500 transition-all duration-1000 ease-linear" style="width: 100%;"></div>
-        </div>
-        <div class="text-center px-2">
-            <p class="text-xs text-gray-600 font-medium"><span id="time-left">40</span> තත්පර ඉතිරිව ඇත</p>
-        </div>
-    </div>
-    
-    <div id="quiz-container" class="hidden"></div>
-    
-    <div id="results-container" class="hidden">
-        <div id="result-card-to-capture" class="p-5 rounded-lg mb-4 shadow-xl"> 
-            <img src="icon.png" onerror="this.onerror=null;this.src='01.png'" alt="GK ICT Logo" class="logo-placeholder w-16 h-16 mx-auto mb-3">
-            <h2 class="text-2xl font-extrabold text-center mb-1 text-blue-900">ප්‍රශ්නාවලියේ අවසන් ප්‍රතිඵලය</h2>
-            <p class="text-center text-base text-gray-700 mb-4 border-b pb-3 border-blue-400">NextGen ICT By Suraj - තොරතුරු තාක්ෂණ ප්‍රශ්නාවලිය</p>
-            
-            <div class="mb-4 text-center">
-                <p class="text-lg font-bold text-gray-800 mb-1">නම: <span id="display-student-name" class="font-extrabold text-blue-800">--</span></p>
-                <p class="text-sm font-semibold text-gray-600">පන්තිය: <span id="display-student-class" class="font-bold text-blue-700">--</span></p>
-            </div>
-
-            <p id="correct-answers-count" class="text-lg font-bold text-center mb-2 text-gray-700"></p>
-            <p id="final-percentage" class="text-3xl font-black text-center mb-3"></p>
-            <p id="result-date" class="text-xs text-center text-gray-600">දිනය සහ වේලාව: --</p>
-        </div>
-        
-        <button onclick="captureResultsAsImage()" class="w-full bg-green-600 text-white py-2.5 rounded-lg hover:bg-green-700 transition duration-300 mb-3 shadow-md transform hover:scale-[1.02]">
-            ප්‍රතිඵල ලේඛනය බාගත කරන්න (JPEG)
-        </button>
-        
-        <button onclick="resetQuizState()" class="w-full bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition duration-300">
-            නැවත මුලට යන්න (Go to Start)
-        </button>
-    </div>
-</div>
-
-<div id="instruction-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-50 flex items-center justify-center hidden">
-    <div id="modal-content" class="bg-white rounded-xl shadow-2xl p-5 m-4 max-w-sm sm:max-w-md w-full max-h-[90vh] overflow-y-auto">
-        <h3 class="text-xl font-bold text-blue-700 mb-3 border-b pb-1.5">ප්‍රශ්නාවලියේ උපදෙස්</h3>
-        <ul id="instructions-list" class="text-left text-gray-700 space-y-2 list-disc list-inside mb-4 text-sm">
-            <li>සියලුම ප්‍රශ්න සඳහා පිළිතුරු දියයුතුය.</li>
-            <li>සෑම ප්‍රශ්නයකටම පිළිතුරු 4ක් පවතින අතර ඉන් එකක් පමණක් නිවැරදි වේ.</li>
-            <li>ප්‍රතිඵල JPEG එකක් ලෙස බාගත කළ හැකිය.</li>
 <!DOCTYPE html>
 <html lang="si">
 <head>
@@ -201,434 +131,89 @@
 
 <script>
     const originalQuizData = [
-  {
-    question: "මෙහෙයුම් පද්ධතියක GUI යන්නෙහි සම්පූර්ණ නම කුමක්ද?",
-    correct: "Graphical User Interface.",
-    distractors: ["General User Interface.", "Global User Interface.", "Graphical Unit Interface.", "Group User Interface."]
-  },
-  {
-    question: "පරිගණකයේ පියා ලෙස හඳුන්වන්නේ කාටද?",
-    correct: "Charles Babbage.",
-    distractors: ["Blaise Pascal.", "Howard Aiken.", "Ada Lovelace.", "John Von Neumann."]
-  },
-  {
-    question: "Pascaline යන්ත්‍රය නිර්මාණය කළේ කවුද?",
-    correct: "Blaise Pascal.",
-    distractors: ["Charles Babbage.", "Leibnitz.", "Howard Aiken.", "Alan Turing."]
-  },
-  {
-    question: "Difference Engine නිර්මාණය කළේ කවුද?",
-    correct: "Charles Babbage.",
-    distractors: ["Pascal.", "Leibnitz.", "Howard Aiken.", "Bill Gates."]
-  },
-  {
-    question: "පළමු Computer Programmer ලෙස සැලකෙන්නේ කවුද?",
-    correct: "Ada Lovelace.",
-    distractors: ["Grace Hopper.", "Pascal.", "Charles Babbage.", "Steve Jobs."]
-  },
-  {
-    question: "Mark I පරිගණකය නිපදවූයේ කවුද?",
-    correct: "Howard Aiken.",
-    distractors: ["John Von Neumann.", "Charles Babbage.", "Pascal.", "IBM."]
-  },
-  {
-    question: "CPU යන්නෙහි සම්පූර්ණ නම කුමක්ද?",
-    correct: "Central Processing Unit.",
-    distractors: ["Computer Processing Unit.", "Central Power Unit.", "Core Processing Unit.", "Central Program Unit."]
-  },
-  {
-    question: "ALU හි ප්‍රධාන කාර්යය කුමක්ද?",
-    correct: "Arithmetic හා Logic ක්‍රියා සිදු කිරීම.",
-    distractors: ["දත්ත මුද්‍රණය.", "විදුලිය සැපයීම.", "ජාල සම්බන්ධතා ලබාදීම.", "මතකය ගබඩා කිරීම."]
-  },
-  {
-    question: "RAM යන්නෙහි සම්පූර්ණ නම කුමක්ද?",
-    correct: "Random Access Memory.",
-    distractors: ["Read Access Memory.", "Rapid Access Memory.", "Random Active Memory.", "Run Access Memory."]
-  },
-  {
-    question: "ROM යන්නෙහි සම්පූර්ණ නම කුමක්ද?",
-    correct: "Read Only Memory.",
-    distractors: ["Random Only Memory.", "Read Open Memory.", "Rapid Output Memory.", "Run Only Memory."]
-  },
-  {
-    question: "Cache Memory භාවිතයේ අරමුණ කුමක්ද?",
-    correct: "CPU වේගය වැඩි කිරීම.",
-    distractors: ["Printer quality වැඩි කිරීම.", "Monitor size වැඩි කිරීම.", "Internet speed වැඩි කිරීම.", "Keyboard speed වැඩි කිරීම."]
-  },
-  {
-    question: "Input Device එකක් වන්නේ කුමක්ද?",
-    correct: "Keyboard.",
-    distractors: ["Monitor.", "Printer.", "Speaker.", "Projector."]
-  },
-  {
-    question: "Output Device එකක් වන්නේ කුමක්ද?",
-    correct: "Monitor.",
-    distractors: ["Mouse.", "Keyboard.", "Scanner.", "Barcode Reader."]
-  },
-  {
-    question: "Scanner භාවිත වන්නේ කුමක් සඳහාද?",
-    correct: "රූප හා ලේඛන ආදානය සඳහා.",
-    distractors: ["මුද්‍රණය සඳහා.", "ශබ්ද ප්‍රතිදානය සඳහා.", "දත්ත මකා දැමීම සඳහා.", "විදුලිය සැපයීම සඳහා."]
-  },
-  {
-    question: "Mouse එකක් කුමන වර්ගයේ උපාංගයක්ද?",
-    correct: "Pointing Device.",
-    distractors: ["Storage Device.", "Output Device.", "Processing Device.", "Power Device."]
-  },
-  {
-    question: "Hard Disk එකක් වන්නේ කුමක්ද?",
-    correct: "Secondary Storage Device.",
-    distractors: ["Input Device.", "Primary Memory.", "Output Device.", "CPU Unit."]
-  },
-  {
-    question: "Von Neumann Architecture ඉදිරිපත් කළේ කවුද?",
-    correct: "John Von Neumann.",
-    distractors: ["Charles Babbage.", "Pascal.", "Howard Aiken.", "Bill Gates."]
-  },
-  {
-    question: "Fetch-Execute Cycle හි පළමු පියවර කුමක්ද?",
-    correct: "Fetch.",
-    distractors: ["Decode.", "Execute.", "Store.", "Delete."]
-  },
-  {
-    question: "Decode යන්නෙන් අදහස් වන්නේ කුමක්ද?",
-    correct: "විධානය අර්ථකථනය කිරීම.",
-    distractors: ["විධානය මකා දැමීම.", "විධානය මුද්‍රණය කිරීම.", "විධානය සුරැකීම.", "විධානය copy කිරීම."]
-  },
-  {
-    question: "Execute යන්නෙන් අදහස් වන්නේ කුමක්ද?",
-    correct: "විධානය ක්‍රියාත්මක කිරීම.",
-    distractors: ["විධානය save කිරීම.", "විධානය delete කිරීම.", "විධානය decode කිරීම.", "විධානය print කිරීම."]
-  },
-  {
-    question: "Store යන්නෙන් අදහස් වන්නේ කුමක්ද?",
-    correct: "ප්‍රතිඵලය මතකයේ තැන්පත් කිරීම.",
-    distractors: ["විධානය මකා දැමීම.", "CPU නවතා දැමීම.", "Monitor off කිරීම.", "Mouse reset කිරීම."]
-  },
-  {
-    question: "Clock Speed මනින ඒකකය කුමක්ද?",
-    correct: "Hertz.",
-    distractors: ["Byte.", "Meter.", "Liter.", "Pixel."]
-  },
-  {
-    question: "1 KB සමාන වන්නේ?",
-    correct: "1024 Bytes.",
-    distractors: ["100 Bytes.", "512 Bytes.", "1000 Bytes.", "2048 Bytes."]
-  },
-  {
-    question: "1 MB සමාන වන්නේ?",
-    correct: "1024 KB.",
-    distractors: ["1000 KB.", "512 KB.", "2048 KB.", "100 KB."]
-  },
-  {
-    question: "1 GB සමාන වන්නේ?",
-    correct: "1024 MB.",
-    distractors: ["1000 MB.", "512 MB.", "2048 MB.", "100 MB."]
-  },
-  {
-    question: "USB යන්නෙහි සම්පූර්ණ නම කුමක්ද?",
-    correct: "Universal Serial Bus.",
-    distractors: ["United Serial Bus.", "Universal System Bus.", "User Serial Base.", "Ultra Storage Bus."]
-  },
-  {
-    question: "Printer එකක් කුමන වර්ගයේ උපාංගයක්ද?",
-    correct: "Output Device.",
-    distractors: ["Input Device.", "Storage Device.", "Processing Device.", "Communication Device."]
-  },
-  {
-    question: "Keyboard භාවිත වන්නේ?",
-    correct: "දත්ත ඇතුළත් කිරීමට.",
-    distractors: ["දත්ත මුද්‍රණයට.", "දත්ත මකා දැමීමට.", "විදුලිය සැපයීමට.", "Network සම්බන්ධ කිරීමට."]
-  },
-  {
-    question: "Speaker එකක් වන්නේ?",
-    correct: "Output Device.",
-    distractors: ["Input Device.", "Memory Device.", "Storage Device.", "CPU Part."]
-  },
-  {
-    question: "Joystick භාවිත වන්නේ?",
-    correct: "Game control සඳහා.",
-    distractors: ["Printing සඳහා.", "Scanning සඳහා.", "Storage සඳහා.", "Typing සඳහා."]
-  },
-  {
-    question: "Touch Screen එකක් වන්නේ?",
-    correct: "Input හා Output දෙකම.",
-    distractors: ["Input only.", "Output only.", "Storage only.", "Memory only."]
-  },
-  {
-    question: "OCR යන්නෙහි සම්පූර්ණ නම කුමක්ද?",
-    correct: "Optical Character Recognition.",
-    distractors: ["Optical Code Reader.", "Online Character Reader.", "Output Character Register.", "Open Character Recognition."]
-  },
-  {
-    question: "OMR භාවිත වන්නේ?",
-    correct: "Marked answers හඳුනාගැනීමට.",
-    distractors: ["Sound record කිරීමට.", "Typing සඳහා.", "Printing සඳහා.", "Internet සඳහා."]
-  },
-  {
-    question: "MICR භාවිත වන්නේ?",
-    correct: "Bank cheque කියවීමට.",
-    distractors: ["Photo scan කිරීමට.", "Mouse control සඳහා.", "Sound edit කිරීමට.", "RAM test කිරීමට."]
-  },
-  {
-    question: "BIOS සාමාන්‍යයෙන් ගබඩා වන්නේ?",
-    correct: "ROM තුළ.",
-    distractors: ["RAM තුළ.", "Cache තුළ.", "Hard Disk තුළ.", "Register තුළ."]
-  },
-  {
-    question: "Booting යනු කුමක්ද?",
-    correct: "පරිගණකය ආරම්භ කිරීම.",
-    distractors: ["පරිගණකය format කිරීම.", "Mouse reset කිරීම.", "Printer clean කිරීම.", "RAM replace කිරීම."]
-  },
-  {
-    question: "Cold Boot යනු?",
-    correct: "Power off සිට on කිරීම.",
-    distractors: ["Restart කිරීම.", "Shutdown කිරීම.", "Sleep mode.", "Printer on කිරීම."]
-  },
-  {
-    question: "Warm Boot යනු?",
-    correct: "Restart කිරීම.",
-    distractors: ["Power cable remove කිරීම.", "Monitor off කිරීම.", "Mouse connect කිරීම.", "Printer install කිරීම."]
-  },
-  {
-    question: "Operating System එකක් වන්නේ?",
-    correct: "Windows.",
-    distractors: ["MS Word.", "Photoshop.", "Chrome.", "PowerPoint."]
-  },
-  {
-    question: "Application Software එකක් වන්නේ?",
-    correct: "MS Excel.",
-    distractors: ["Linux.", "Windows.", "BIOS.", "ROM."]
-  },
-  {
-    question: "System Software එකක් වන්නේ?",
-    correct: "Operating System.",
-    distractors: ["Paint.", "Word.", "Excel.", "Photoshop."]
-  },
-  {
-    question: "Linux යනු?",
-    correct: "Open Source Operating System.",
-    distractors: ["Spreadsheet software.", "Game software.", "Printer brand.", "Programming language."]
-  },
-  {
-    question: "Compiler එකක් වන්නේ?",
-    correct: "Language Translator.",
-    distractors: ["Input Device.", "Storage Device.", "Output Device.", "CPU Part."]
-  },
-  {
-    question: "Utility Software උදාහරණයක් වන්නේ?",
-    correct: "Antivirus.",
-    distractors: ["Keyboard.", "Monitor.", "Mouse.", "CPU."]
-  },
-  {
-    question: "Antivirus Software භාවිත වන්නේ?",
-    correct: "Virus වලින් ආරක්ෂා කිරීමට.",
-    distractors: ["Typing speed වැඩි කිරීමට.", "Screen size වැඩි කිරීමට.", "RAM increase කිරීමට.", "Printer clean කිරීමට."]
-  },
-  {
-    question: "Multitasking යනු?",
-    correct: "වැඩ කිහිපයක් එකවර කිරීම.",
-    distractors: ["එක වැඩක් පමණක් කිරීම.", "Power off කිරීම.", "Data delete කිරීම.", "Monitor clean කිරීම."]
-  },
-  {
-    question: "Device Driver භාවිත වන්නේ?",
-    correct: "Hardware control සඳහා.",
-    distractors: ["Typing සඳහා.", "Music play සඳහා.", "Video edit සඳහා.", "Storage format සඳහා."]
-  },
-  {
-    question: "GUI හි වාසියක් වන්නේ?",
-    correct: "Icons සහ windows භාවිතයෙන් පහසු වීම.",
-    distractors: ["Text only interface.", "No mouse support.", "No graphics.", "Only experts සඳහා."]
-  },
-  {
-    question: "CLI යන්නෙහි සම්පූර්ණ නම කුමක්ද?",
-    correct: "Command Line Interface.",
-    distractors: ["Computer Line Interface.", "Common Link Interface.", "Control Line Input.", "Code Level Interface."]
-  },
-  {
-    question: "CLI භාවිතයේ ප්‍රධාන ලක්ෂණය කුමක්ද?",
-    correct: "Commands type කිරීම.",
-    distractors: ["Icons click කිරීම.", "Touch only use කිරීම.", "Voice only control.", "Mouse only use කිරීම."]
-  },
-  {
-    question: "Super Computer භාවිත වන්නේ?",
-    correct: "Weather Forecasting වැනි සංකීර්ණ ගණනයන් සඳහා.",
-    distractors: ["Typing only.", "Music play කිරීම.", "Printing only.", "Scanning only."]
-  },
-  {
-    question: "Mainframe Computer සුදුසු වන්නේ?",
-    correct: "විශාල ආයතන සඳහා.",
-    distractors: ["Home gaming සඳහා.", "Mobile use සඳහා.", "Camera use සඳහා.", "Printer use සඳහා."]
-  },
-  {
-    question: "Micro Computer උදාහරණයක් වන්නේ?",
-    correct: "Laptop.",
-    distractors: ["Mainframe.", "Super Computer.", "Server Farm.", "Quantum Machine."]
-  },
-  {
-    question: "Analog Computer භාවිත කරන්නේ?",
-    correct: "Continuous data.",
-    distractors: ["Binary only.", "Text only.", "Image only.", "Audio only."]
-  },
-  {
-    question: "Digital Computer භාවිත කරන්නේ?",
-    correct: "Binary data.",
-    distractors: ["Water flow.", "Pressure only.", "Temperature only.", "Voltage only."]
-  },
-  {
-    question: "1st Generation Computers භාවිත කළේ?",
-    correct: "Vacuum Tubes.",
-    distractors: ["Transistors.", "IC.", "Microprocessors.", "AI Chips."]
-  },
-  {
-    question: "2nd Generation Computers භාවිත කළේ?",
-    correct: "Transistors.",
-    distractors: ["Vacuum Tubes.", "IC.", "Microprocessors.", "Quantum Chips."]
-  },
-  {
-    question: "3rd Generation Computers භාවිත කළේ?",
-    correct: "Integrated Circuits.",
-    distractors: ["Vacuum Tubes.", "Transistors.", "Microprocessors.", "AI."]
-  },
-  {
-    question: "4th Generation Computers භාවිත කළේ?",
-    correct: "Microprocessors.",
-    distractors: ["IC.", "Transistors.", "Vacuum Tubes.", "Relay."]
-  },
-  {
-    question: "5th Generation Computers සම්බන්ධ වන්නේ?",
-    correct: "Artificial Intelligence.",
-    distractors: ["Vacuum Tubes.", "Punch Cards.", "Floppy Disks.", "Relay."]
-  },
-  {
-    question: "AI යන්නෙහි සම්පූර්ණ නම කුමක්ද?",
-    correct: "Artificial Intelligence.",
-    distractors: ["Automatic Interface.", "Applied Internet.", "Analog Intelligence.", "Advanced Integration."]
-  },
-  {
-    question: "Data Bus භාවිත වන්නේ?",
-    correct: "දත්ත හුවමාරු කිරීමට.",
-    distractors: ["Address transfer සඳහා.", "Power supply සඳහා.", "Cooling සඳහා.", "Printing සඳහා."]
-  },
-  {
-    question: "Address Bus භාවිත වන්නේ?",
-    correct: "Memory addresses යැවීමට.",
-    distractors: ["Sound transfer සඳහා.", "Image print සඳහා.", "Mouse move සඳහා.", "Virus scan සඳහා."]
-  },
-  {
-    question: "Control Bus භාවිත වන්නේ?",
-    correct: "Control signals යැවීමට.",
-    distractors: ["Data store සඳහා.", "Photo edit සඳහා.", "RAM clean සඳහා.", "USB charge සඳහා."]
-  },
-  {
-    question: "Word Size වැඩි වීමෙන්?",
-    correct: "CPU performance වැඩිවේ.",
-    distractors: ["Printer speed වැඩිවේ.", "Screen size වැඩිවේ.", "Mouse speed වැඩිවේ.", "Speaker volume වැඩිවේ."]
-  },
-  {
-    question: "Register memory පිහිටා ඇත්තේ?",
-    correct: "CPU තුළ.",
-    distractors: ["Hard Disk තුළ.", "Keyboard තුළ.", "Monitor තුළ.", "Printer තුළ."]
-  },
-  {
-    question: "Registers වල ලක්ෂණය කුමක්ද?",
-    correct: "ඉතා වේගවත් මතකයක් වීම.",
-    distractors: ["ඉතා මන්දගාමී වීම.", "Permanent storage වීම.", "Optical memory වීම.", "Magnetic memory වීම."]
-  },
-  {
-    question: "Volatile Memory එකක් වන්නේ?",
-    correct: "RAM.",
-    distractors: ["ROM.", "DVD.", "Hard Disk.", "SSD."]
-  },
-  {
-    question: "Non-Volatile Memory එකක් වන්නේ?",
-    correct: "ROM.",
-    distractors: ["RAM.", "Cache.", "Register.", "SRAM."]
-  },
-  {
-    question: "SRAM යන්නෙහි සම්පූර්ණ නම කුමක්ද?",
-    correct: "Static RAM.",
-    distractors: ["Stored RAM.", "Speed RAM.", "Serial RAM.", "Simple RAM."]
-  },
-  {
-    question: "DRAM යන්නෙහි සම්පූර්ණ නම කුමක්ද?",
-    correct: "Dynamic RAM.",
-    distractors: ["Direct RAM.", "Dual RAM.", "Digital RAM.", "Data RAM."]
-  },
-  {
-    question: "SRAM සාමාන්‍යයෙන් භාවිත වන්නේ?",
-    correct: "Cache Memory සඳහා.",
-    distractors: ["Printer memory.", "Hard Disk.", "ROM chip.", "Monitor memory."]
-  },
-  {
-    question: "DRAM සාමාන්‍යයෙන් භාවිත වන්නේ?",
-    correct: "Main Memory ලෙස.",
-    distractors: ["CPU Register ලෙස.", "BIOS ලෙස.", "Printer memory ලෙස.", "USB memory ලෙස."]
-  },
-  {
-    question: "SSD යනු?",
-    correct: "Solid State Drive.",
-    distractors: ["System Storage Disk.", "Serial State Drive.", "Secure Storage Device.", "Solid System Disk."]
-  },
-  {
-    question: "CD-ROM හි ROM යන්නෙන් අදහස් වන්නේ?",
-    correct: "Read Only Memory.",
-    distractors: ["Run Output Memory.", "Rapid Only Mode.", "Read Open Module.", "Record Output Media."]
-  },
-  {
-    question: "Plotter භාවිත වන්නේ?",
-    correct: "Large drawings print කිරීමට.",
-    distractors: ["Sound output සඳහා.", "Typing සඳහා.", "Scanning සඳහා.", "Gaming සඳහා."]
-  },
-  {
-    question: "Barcode Reader භාවිත වන්නේ?",
-    correct: "Barcode scan කිරීමට.",
-    distractors: ["Photo edit කිරීමට.", "Typing සඳහා.", "Printing සඳහා.", "Virus scan සඳහා."]
-  },
-  {
-    question: "Smart Card Reader භාවිත වන්නේ?",
-    correct: "Card data read කිරීමට.",
-    distractors: ["Sound play කිරීමට.", "Photo print කිරීමට.", "RAM upgrade කිරීමට.", "Mouse control සඳහා."]
-  },
-  {
-    question: "HDMI භාවිත වන්නේ?",
-    correct: "Audio හා Video transfer සඳහා.",
-    distractors: ["RAM install සඳහා.", "Keyboard clean සඳහා.", "Printer ink fill සඳහා.", "CPU cool සඳහා."]
-  },
-  {
-    question: "Cloud Computing යනු?",
-    correct: "Internet හරහා සේවා භාවිතය.",
-    distractors: ["Local disk use only.", "Weather system.", "CPU cache type.", "Printer sharing only."]
-  },
-  {
-    question: "SaaS යන්නෙහි සම්පූර්ණ නම කුමක්ද?",
-    correct: "Software as a Service.",
-    distractors: ["Storage as a Service.", "System as a Service.", "Server as a Software.", "Software and Service."]
-  },
-  {
-    question: "PaaS යන්නෙහි සම්පූර්ණ නම කුමක්ද?",
-    correct: "Platform as a Service.",
-    distractors: ["Program as a Service.", "Process as a Service.", "Platform and Software.", "Primary as a Service."]
-  },
-  {
-    question: "IaaS යන්නෙහි සම්පූර්ණ නම කුමක්ද?",
-    correct: "Infrastructure as a Service.",
-    distractors: ["Internet as a Service.", "Input as a Service.", "Internal as a Service.", "Integrated as a Service."]
-  },
-  {
-    question: "Cloud Computing වාසියක් වන්නේ?",
-    correct: "Anywhere access.",
-    distractors: ["No internet needed.", "No updates.", "No storage.", "No login."]
-  },
-  {
-    question: "Cloud Computing අවාසියක් වන්නේ?",
-    correct: "Internet connection අවශ්‍ය වීම.",
-    distractors: ["Automatic backup.", "Easy sharing.", "Low hardware cost.", "Anywhere access."]
-  }
-];
-	
-let currentQuestionIndex = 0;
+        { question: "මෙහෙයුම් පද්ධතියක GUI යන්නෙහි සම්පූර්ණ නම කුමක්ද?", correct: "Graphical User Interface.", distractors: ["General User Interface.", "Global User Interface.", "Graphical Unit Interface.", "Group User Interface."] },
+        { question: "පරිගණකයේ පියා ලෙස හඳුන්වන්නේ කාටද?", correct: "Charles Babbage.", distractors: ["Blaise Pascal.", "Howard Aiken.", "Ada Lovelace.", "John Von Neumann."] },
+        { question: "Pascaline යන්ත්‍රය නිර්මාණය කළේ කවුද?", correct: "Blaise Pascal.", distractors: ["Charles Babbage.", "Leibnitz.", "Howard Aiken.", "Alan Turing."] },
+        { question: "Difference Engine නිර්මාණය කළේ කවුද?", correct: "Charles Babbage.", distractors: ["Pascal.", "Leibnitz.", "Howard Aiken.", "Bill Gates."] },
+        { question: "පළමු Computer Programmer ලෙස සැලකෙන්නේ කවුද?", correct: "Ada Lovelace.", distractors: ["Grace Hopper.", "Pascal.", "Charles Babbage.", "Steve Jobs."] },
+        { question: "Mark I පරිගණකය නිපදවූයේ කවුද?", correct: "Howard Aiken.", distractors: ["John Von Neumann.", "Charles Babbage.", "Pascal.", "IBM."] },
+        { question: "CPU යන්නෙහි සම්පූර්ණ නම කුමක්ද?", correct: "Central Processing Unit.", distractors: ["Computer Processing Unit.", "Central Power Unit.", "Core Processing Unit.", "Central Program Unit."] },
+        { question: "ALU හි ප්‍රධාන කාර්යය කුමක්ද?", correct: "Arithmetic හා Logic ක්‍රියා සිදු කිරීම.", distractors: ["දත්ත මුද්‍රණය.", "විදුලිය සැපයීම.", "ජාල සම්බන්ධතා ලබාදීම.", "මතකය ගබඩා කිරීම."] },
+        { question: "RAM යන්නෙහි සම්පූර්ණ නම කුමක්ද?", correct: "Random Access Memory.", distractors: ["Read Access Memory.", "Rapid Access Memory.", "Random Active Memory.", "Run Access Memory."] },
+        { question: "ROM යන්නෙහි සම්පූර්ණ නම කුමක්ද?", correct: "Read Only Memory.", distractors: ["Random Only Memory.", "Read Open Memory.", "Rapid Output Memory.", "Run Only Memory."] },
+        { question: "Cache Memory භාවිතයේ අරමුණ කුමක්ද?", correct: "CPU වේගය වැඩි කිරීම.", distractors: ["Printer quality වැඩි කිරීම.", "Monitor size වැඩි කිරීම.", "Internet speed වැඩි කිරීම.", "Keyboard speed වැඩි කිරීම."] },
+        { question: "Input Device එකක් වන්නේ කුමක්ද?", correct: "Keyboard.", distractors: ["Monitor.", "Printer.", "Speaker.", "Projector."] },
+        { question: "Output Device එකක් වන්නේ කුමක්ද?", correct: "Monitor.", distractors: ["Mouse.", "Keyboard.", "Scanner.", "Barcode Reader."] },
+        { question: "Scanner භාවිත වන්නේ කුමක් සඳහාද?", correct: "රූප හා ලේඛන ආදානය සඳහා.", distractors: ["මුද්‍රණය සඳහා.", "ශබ්ද ප්‍රතිදානය සඳහා.", "දත්ත මකා දැමීම සඳහා.", "විදුලිය සැපයීම සඳහා."] },
+        { question: "Mouse එකක් කුමන වර්ගයේ උපාංගයක්ද?", correct: "Pointing Device.", distractors: ["Storage Device.", "Output Device.", "Processing Device.", "Power Device."] },
+        { question: "Hard Disk එකක් වන්නේ කුමක්ද?", correct: "Secondary Storage Device.", distractors: ["Input Device.", "Primary Memory.", "Output Device.", "CPU Unit."] },
+        { question: "Von Neumann Architecture ඉදිරිපත් කළේ කවුද?", correct: "John Von Neumann.", distractors: ["Charles Babbage.", "Pascal.", "Howard Aiken.", "Bill Gates."] },
+        { question: "Fetch-Execute Cycle හි පළමු පියවර කුමක්ද?", correct: "Fetch.", distractors: ["Decode.", "Execute.", "Store.", "Delete."] },
+        { question: "Decode යන්නෙන් අදහස් වන්නේ කුමක්ද?", correct: "විධානය අර්ථකථනය කිරීම.", distractors: ["විධානය මකා දැමීම.", "විධානය මුද්‍රණය කිරීම.", "විධානය සුරැකීම.", "විධානය copy කිරීම."] },
+        { question: "Execute යන්නෙන් අදහස් වන්නේ කුමක්ද?", correct: "විධානය ක්‍රියාත්මක කිරීම.", distractors: ["විධානය save කිරීම.", "විධානය delete කිරීම.", "විධානය decode කිරීම.", "විධානය print කිරීම."] },
+        { question: "Store යන්නෙන් අදහස් වන්නේ කුමක්ද?", correct: "ප්‍රතිඵලය මතකයේ තැන්පත් කිරීම.", distractors: ["විධානය මකා දැමීම.", "CPU නවතා දැමීම.", "Monitor off කිරීම.", "Mouse reset කිරීම."] },
+        { question: "Clock Speed මනින ඒකකය කුමක්ද?", correct: "Hertz.", distractors: ["Byte.", "Meter.", "Liter.", "Pixel."] },
+        { question: "1 KB සමාන වන්නේ?", correct: "1024 Bytes.", distractors: ["100 Bytes.", "512 Bytes.", "1000 Bytes.", "2048 Bytes."] },
+        { question: "1 MB සමාන වන්නේ?", correct: "1024 KB.", distractors: ["1000 KB.", "512 KB.", "2048 KB.", "100 KB."] },
+        { question: "1 GB සමාන වන්නේ?", correct: "1024 MB.", distractors: ["1000 MB.", "512 MB.", "2048 MB.", "100 MB."] },
+        { question: "USB යන්නෙහි සම්පූර්ණ නම කුමක්ද?", correct: "Universal Serial Bus.", distractors: ["United Serial Bus.", "Universal System Bus.", "User Serial Base.", "Ultra Storage Bus."] },
+        { question: "Printer එකක් කුමන වර්ගයේ උපාංගයක්ද?", correct: "Output Device.", distractors: ["Input Device.", "Storage Device.", "Processing Device.", "Communication Device."] },
+        { question: "Keyboard භාවිත වන්නේ?", correct: "දත්ත ඇතුළත් කිරීමට.", distractors: ["දත්ත මුද්‍රණයට.", "දත්ත මකා දැමීමට.", "විදුලිය සැපයීමට.", "Network සම්බන්ධ කිරීමට."] },
+        { question: "Speaker එකක් වන්නේ?", correct: "Output Device.", distractors: ["Input Device.", "Memory Device.", "Storage Device.", "CPU Part."] },
+        { question: "Joystick භාවිත වන්නේ?", correct: "Game control සඳහා.", distractors: ["Printing සඳහා.", "Scanning සඳහා.", "Storage සඳහා.", "Typing සඳහා."] },
+        { question: "Touch Screen එකක් වන්නේ?", correct: "Input හා Output දෙකම.", distractors: ["Input only.", "Output only.", "Storage only.", "Memory only."] },
+        { question: "OCR යන්නෙහි සම්පූර්ණ නම කුමක්ද?", correct: "Optical Character Recognition.", distractors: ["Optical Code Reader.", "Online Character Reader.", "Output Character Register.", "Open Character Recognition."] },
+        { question: "OMR භාවිත වන්නේ?", correct: "Marked answers හඳුනාගැනීමට.", distractors: ["Sound record කිරීමට.", "Typing සඳහා.", "Printing සඳහා.", "Internet සඳහා."] },
+        { question: "MICR භාවිත වන්නේ?", correct: "Bank cheque කියවීමට.", distractors: ["Photo scan කිරීමට.", "Mouse control සඳහා.", "Sound edit කිරීමට.", "RAM test කිරීමට."] },
+        { question: "BIOS සාමාන්‍යයෙන් ගබඩා වන්නේ?", correct: "ROM තුළ.", distractors: ["RAM තුළ.", "Cache තුළ.", "Hard Disk තුළ.", "Register තුළ."] },
+        { question: "Booting යනු කුමක්ද?", correct: "පරිගණකය ආරම්භ කිරීම.", distractors: ["පරිගණකය format කිරීම.", "Mouse reset කිරීම.", "Printer clean කිරීම.", "RAM replace කිරීම."] },
+        { question: "Cold Boot යනු?", correct: "Power off සිට on කිරීම.", distractors: ["Restart කිරීම.", "Shutdown කිරීම.", "Sleep mode.", "Printer on කිරීම."] },
+        { question: "Warm Boot යනු?", correct: "Restart කිරීම.", distractors: ["Power cable remove කිරීම.", "Monitor off කිරීම.", "Mouse connect කිරීම.", "Printer install කිරීම."] },
+        { question: "Operating System එකක් වන්නේ?", correct: "Windows.", distractors: ["MS Word.", "Photoshop.", "Chrome.", "PowerPoint."] },
+        { question: "Application Software එකක් වන්නේ?", correct: "MS Excel.", distractors: ["Linux.", "Windows.", "BIOS.", "ROM."] },
+        { question: "System Software එකක් වන්නේ?", correct: "Operating System.", distractors: ["Paint.", "Word.", "Excel.", "Photoshop."] },
+        { question: "Linux යනු?", correct: "Open Source Operating System.", distractors: ["Spreadsheet software.", "Game software.", "Printer brand.", "Programming language."] },
+        { question: "Compiler එකක් වන්නේ?", correct: "Language Translator.", distractors: ["Input Device.", "Storage Device.", "Output Device.", "CPU Part."] },
+        { question: "Utility Software උදාහරණයක් වන්නේ?", correct: "Antivirus.", distractors: ["Keyboard.", "Monitor.", "Mouse.", "CPU."] },
+        { question: "Antivirus Software භාවිත වන්නේ?", correct: "Virus වලින් ආරක්ෂා කිරීමට.", distractors: ["Typing speed වැඩි කිරීමට.", "Screen size වැඩි කිරීමට.", "RAM increase කිරීමට.", "Printer clean කිරීමට."] },
+        { question: "Multitasking යනු?", correct: "වැඩ කිහිපයක් එකවර කිරීම.", distractors: ["එක වැඩක් පමණක් කිරීම.", "Power off කිරීම.", "Data delete කිරීම.", "Monitor clean කිරීම."] },
+        { question: "Device Driver භාවිත වන්නේ?", correct: "Hardware control සඳහා.", distractors: ["Typing සඳහා.", "Music play සඳහා.", "Video edit සඳහා.", "Storage format සඳහා."] },
+        { question: "GUI හි වාසියක් වන්නේ?", correct: "Icons සහ windows භාවිතයෙන් පහසු වීම.", distractors: ["Text only interface.", "No mouse support.", "No graphics.", "Only experts සඳහා."] },
+        { question: "CLI යන්නෙහි සම්පූර්ණ නම කුමක්ද?", correct: "Command Line Interface.", distractors: ["Computer Line Interface.", "Common Link Interface.", "Control Line Input.", "Code Level Interface."] },
+        { question: "CLI භාවිතයේ ප්‍රධාන ලක්ෂණය කුමක්ද?", correct: "Commands type කිරීම.", distractors: ["Icons click කිරීම.", "Touch only use කිරීම.", "Voice only control.", "Mouse only use කිරීම."] },
+        { question: "Super Computer භාවිත වන්නේ?", correct: "Weather Forecasting වැනි සංකීර්ණ ගණනයන් සඳහා.", distractors: ["Typing only.", "Music play කිරීම.", "Printing only.", "Scanning only."] },
+        { question: "Mainframe Computer සුදුසු වන්නේ?", correct: "විශාල ආයතන සඳහා.", distractors: ["Home gaming සඳහා.", "Mobile use සඳහා.", "Camera use සඳහා.", "Printer use සඳහා."] },
+        { question: "Micro Computer උදාහරණයක් වන්නේ?", correct: "Laptop.", distractors: ["Mainframe.", "Super Computer.", "Server Farm.", "Quantum Machine."] },
+        { question: "Analog Computer භාවිත කරන්නේ?", correct: "Continuous data.", distractors: ["Binary only.", "Text only.", "Image only.", "Audio only."] },
+        { question: "Digital Computer භාවිත කරන්නේ?", correct: "Binary data.", distractors: ["Water flow.", "Pressure only.", "Temperature only.", "Voltage only."] },
+        { question: "1st Generation Computers භාවිත කළේ?", correct: "Vacuum Tubes.", distractors: ["Transistors.", "IC.", "Microprocessors.", "AI Chips."] },
+        { question: "2nd Generation Computers භාවිත කළේ?", correct: "Transistors.", distractors: ["Vacuum Tubes.", "IC.", "Microprocessors.", "Quantum Chips."] },
+        { question: "3rd Generation Computers භාවිත කළේ?", correct: "Integrated Circuits.", distractors: ["Vacuum Tubes.", "Transistors.", "Microprocessors.", "AI."] },
+        { question: "4th Generation Computers භාවිත කළේ?", correct: "Microprocessors.", distractors: ["IC.", "Transistors.", "Vacuum Tubes.", "Relay."] },
+        { question: "5th Generation Computers සම්බන්ධ වන්නේ?", correct: "Artificial Intelligence.", distractors: ["Vacuum Tubes.", "Punch Cards.", "Floppy Disks.", "Relay."] },
+        { question: "AI යන්නෙහි සම්පූර්ණ නම කුමක්ද?", correct: "Artificial Intelligence.", distractors: ["Automatic Interface.", "Applied Internet.", "Analog Intelligence.", "Advanced Integration."] },
+        { question: "Data Bus භාවිත වන්නේ?", correct: "දත්ත හුවමාරු කිරීමට.", distractors: ["Address transfer සඳහා.", "Power supply සඳහා.", "Cooling සඳහා.", "Printing සඳහා."] },
+        { question: "Address Bus භාවිත වන්නේ?", correct: "Memory addresses යැවීමට.", distractors: ["Sound transfer සඳහා.", "Image print සඳහා.", "Mouse move සඳහා.", "Virus scan සඳහා."] },
+        { question: "Control Bus භාවිත වන්නේ?", correct: "Control signals යැවීමට.", distractors: ["Data store සඳහා.", "Photo edit සඳහා.", "RAM clean සඳහා.", "USB charge සඳහා."] },
+        { question: "Word Size වැඩි වීමෙන්?", correct: "CPU performance වැඩිවේ.", distractors: ["Printer speed වැඩිවේ.", "Screen size වැඩිවේ.", "Mouse speed වැඩිවේ.", "Speaker volume වැඩිවේ."] },
+        { question: "Register memory පිහිටා ඇත්තේ?", correct: "CPU තුළ.", distractors: ["Hard Disk තුළ.", "Keyboard තුළ.", "Monitor තුළ.", "Printer තුළ."] },
+        { question: "Registers වල ලක්ෂණය කුමක්ද?", correct: "ඉතා වේගවත් මතකයක් වීම.", distractors: ["ඉතා මන්දගාමී වීම.", "Permanent storage වීම.", "Optical memory වීම.", "Magnetic memory වීම."] },
+        { question: "Volatile Memory එකක් වන්නේ?", correct: "RAM.", distractors: ["ROM.", "DVD.", "Hard Disk.", "SSD."] },
+        { question: "Non-Volatile Memory එකක් වන්නේ?", correct: "ROM.", distractors: ["RAM.", "Cache.", "Register.", "SRAM."] },
+        { question: "SRAM යන්නෙහි සම්පූර්ණ නම කුමක්ද?", correct: "Static RAM.", distractors: ["Stored RAM.", "Speed RAM.", "Serial RAM.", "Simple RAM."] },
+        { question: "DRAM යන්නෙහි සම්පූර්ණ නම කුමක්ද?", correct: "Dynamic RAM.", distractors: ["Direct RAM.", "Dual RAM.", "Digital RAM.", "Data RAM."] },
+        { question: "SRAM සාමාන්‍යයෙන් භාවිත වන්නේ?", correct: "Cache Memory සඳහා.", distractors: ["Printer memory.", "Hard Disk.", "ROM chip.", "Monitor memory."] },
+        { question: "DRAM සාමාන්‍යයෙන් භාවිත වන්නේ?", correct: "Main Memory ලෙස.", distractors: ["CPU Register ලෙස.", "BIOS ලෙස.", "Printer memory ලෙස.", "USB memory ලෙස."] },
+        { question: "SSD යනු?", correct: "Solid State Drive.", distractors: ["System Storage Disk.", "Serial State Drive.", "Secure Storage Device.", "Solid System Disk."] },
+        { question: "CD-ROM හි ROM යන්නෙන් අදහස් වන්නේ?", correct: "Read Only Memory.", distractors: ["Run Output Memory.", "Rapid Only Mode.", "Read Open Module.", "Record Output Media."] },
+        { question: "Plotter භාවිත වන්නේ?", correct: "Large drawings print කිරීමට.", distractors: ["Sound output සඳහා.", "Typing සඳහා.", "Scanning සඳහා.", "Gaming සඳහා."] },
+        { question: "Barcode Reader භාවිත වන්නේ?", correct: "Barcode scan කිරීමට.", distractors: ["Photo edit කිරීමට.", "Typing සඳහා.", "Printing සඳහා.", "Virus scan සඳහා."] },
+        { question: "Smart Card Reader භාවිත වන්නේ?", correct: "Card data read කිරීමට.", distractors: ["Sound play කිරීමට.", "Photo print කිරීමට.", "RAM upgrade කිරීමට.", "Mouse control සඳහා."] },
+        { question: "HDMI භාවිත වන්නේ?", correct: "Audio හා Video transfer සඳහා.", distractors: ["RAM install සඳහා.", "Keyboard clean සඳහා.", "Printer ink fill සඳහා.", "CPU cool සඳහා."] },
+        { question: "Cloud Computing යනු?", correct: "Internet හරහා සේවා භාවිතය.", distractors: ["Local disk use only.", "Weather system.", "CPU cache type.", "Printer sharing only."] }
+    ];
+
+    let currentQuestionIndex = 0;
     let score = 0;
     let studentName = '';
     let studentClass = '';
